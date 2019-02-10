@@ -1,0 +1,12 @@
+{
+  "name": "Indecision",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/darrylmangibin/Reactjs-indecsion-app-v2.git",
+  "author": "Darryl <darrylmangibin@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "babel-preset-env": "1.5.2",
+    "babel-preset-react": "6.24.1"
+  }
+}
