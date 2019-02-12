@@ -3,17 +3,12 @@ import AddOption from './AddOption';
 import Options from './Options';
 import Action from './Action';
 import Header from './Header';
+import OptionModal from './OptionModal';
 
 class IndecisionApp extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
-        this.handlePick = this.handlePick.bind(this);
-        this.handleAddOption = this.handleAddOption.bind(this);
-        this.handleDeleteOption = this.handleDeleteOption.bind(this);
-        this.state = {
-            options:  []
-        }
+    state = {
+        options: [],
+        selectedOption: undefined
     }
     componentDidMount() {
         try {
@@ -40,21 +35,33 @@ class IndecisionApp extends React.Component {
     componentWillUnmount() {
         console.log('componentwillunmount')
     }
-    handleDeleteOptions () {
+    handleDeleteOptions = () => {
         this.setState(() => ({ options: [] }));
     }
-    handleDeleteOption(optionText) {
+    handleDeleteOption = (optionText) => {
         this.setState((prevState) => {
             return {
                 options: prevState.options.filter((option) => optionText !== option)
             }
         })
     }
-    handlePick() {
-        const randomNum = Math.floor(Math.random() * this.state.options.length)
-        alert(this.state.options[randomNum]);
+    handlePick = () => {
+        const randomNum = Math.floor(Math.random() * this.state.options.length);
+        const option = this.state.options[randomNum];
+        this.setState(() => {
+            return {
+                selectedOption: option
+            }
+        })
     }
-    handleAddOption(option) {
+    handleClearSelectedOption = () => {
+        this.setState(() => {
+            return {
+                selectedOption: undefined
+            }
+        })
+    }
+    handleAddOption = (option) => {
         if(!option){
            return `Enter valid value to add item`;
         } else if(this.state.options.indexOf(option) > -1) {
@@ -81,6 +88,10 @@ class IndecisionApp extends React.Component {
                 />
                 <AddOption 
                     handleAddOption={this.handleAddOption}
+                />
+                <OptionModal 
+                    handleClearSelectedOption={this.handleClearSelectedOption}
+                    selectedOption={this.state.selectedOption}
                 />
             </div>
         )
